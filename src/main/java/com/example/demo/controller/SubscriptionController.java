@@ -71,8 +71,9 @@ public class SubscriptionController {
         }
 
         subscriptionById.setClientID(clientById);
-        subscriptionService.updateSubscription(subscriptionById);
         clientService.updateClient(clientById);
+        subscriptionService.updateSubscription(subscriptionById);
+        
 
        return ResponseEntity.ok(subscriptionById);
 

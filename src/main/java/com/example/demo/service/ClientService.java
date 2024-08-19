@@ -38,7 +38,12 @@ public class ClientService {
 
     @Transactional
     public List<Client> getAllClient(){
-        return  clientRepository.findAll().stream().map(ClientMapper.INSTANCE::clientDTOToClient).toList();
+
+        return  clientRepository
+                .findAll()
+                .stream()
+                .map(ClientMapper.INSTANCE::clientDTOToClient)
+                .toList();
     }
 
     @Transactional
@@ -56,7 +61,7 @@ public class ClientService {
                 .subscriptionID(client.getSubscriptionID() != null ? client.getSubscriptionID() : preClient.getSubscriptionID())
                 .name(client.getName() != null && !client.getName().isEmpty() ? client.getName() : preClient.getName())
                 .surname(client.getSurname() != null && !client.getSurname().isEmpty() ? client.getSurname() : preClient.getSurname())
-                .bday(client.getBday() != null && !client.getBday().isEmpty() ? client.getBday() : preClient.getBday())
+                .bday(client.getBday() != null ? formatter.format( client.getBday()) : formatter.format(preClient.getBday()))
                 .address(client.getAddress() != null && !client.getAddress().isEmpty() ? client.getAddress() : preClient.getAddress())
                 .mobile(client.getMobile() != null && !client.getMobile().isEmpty() ? client.getMobile() : preClient.getMobile())
                 .email(client.getEmail() != null && !client.getEmail().isEmpty() ? client.getEmail() : preClient.getEmail())
