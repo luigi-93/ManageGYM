@@ -11,10 +11,10 @@ public interface TrainerMapper {
     TrainerMapper INSTANCE = Mappers.getMapper(TrainerMapper.class);
 
 
-    @Mapping(target = "trainingCardID", ignore = true)
+
     TrainerDTO trainerToTrainerDTO(Trainer trainer);
 
 
-    @Mapping(target = "trainingCardID", ignore = true)
+
     Trainer trainerDTOToTrainer(TrainerDTO trainerDTO);
 }

@@ -59,19 +59,21 @@ public class SubscriptionController {
         subscriptionService.deleteSubscriptionById(id);
 
     }
-    //[PUT] http://localhost:8080/subscription/addClient?subscription=1&client=1
 
+
+
+    //[PUT] http://localhost:8080/subscription/addClient?subscription=1&client=1
     @PutMapping("/addClient")
     public ResponseEntity<Subscription> addClientToSubscription(@RequestParam long subscription, @RequestParam long client) throws ParseException {
         Subscription subscriptionById = subscriptionService.getSubscriptionById(subscription);
         Client clientById = clientService.getClientById(client);
 
-        if (subscriptionById == null && clientById == null){
+        if (subscriptionById == null || clientById == null){
             return ResponseEntity.notFound().build();
         }
 
         subscriptionById.setClientID(clientById);
-        clientService.updateClient(clientById);
+        //clientService.updateClient(clientById);
         subscriptionService.updateSubscription(subscriptionById);
         
 

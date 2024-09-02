@@ -6,16 +6,16 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(uses = {ClientMapper.class})
 public interface SubscriptionMapper {
     SubscriptionMapper INSTANCE = Mappers.getMapper(SubscriptionMapper.class);
 
-    //@Mapping(target = "clientID", ignore = true)
+    @Mapping(target = "clientID", dateFormat = "dd-MM-yyyy")
     @Mapping(target = "startDate", dateFormat = "dd-MM-yyyy")
     @Mapping(target = "endDate", dateFormat = "dd-MM-yyyy")
     SubscriptionDTO subscriptionToSubscriptionDTO(Subscription subscription);
 
-    //@Mapping(target = "clientID", ignore = true)
+    @Mapping(target = "clientID", dateFormat = "dd-MM-yyyy")
     @Mapping(target = "startDate", dateFormat = "dd-MM-yyyy")
     @Mapping(target = "endDate", dateFormat = "dd-MM-yyyy")
     Subscription subscriptionDTOToSubscription(SubscriptionDTO subscriptionDTO);

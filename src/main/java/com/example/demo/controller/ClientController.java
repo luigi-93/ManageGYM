@@ -20,15 +20,15 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    //@RequestMapping(method = RequestMethod.GET)
-    //poichè non siamo più nella preistoria usiamo
+
     @GetMapping
     //il risultato sarà [GET]
     public List<Client> getAllClient(){
         return  clientService.getAllClient();
     }
 
-    // [POST] http://localhost:8080/client/updateClient
+    // [PUT] http://localhost:8080/client/updateClient
+    //da cambiare in patch
     @PutMapping("/updateClient")
     public Client updateClient(@Valid @RequestBody Client client ) throws ParseException {
         return clientService.updateClient(client);
@@ -41,7 +41,9 @@ public class ClientController {
         return clientService.getClientById(id);
     }
 
+
     //[POST] http://localhost:8080/client
+    //creare due endpoint uno che accetta l'array e l'altro nain
     @PostMapping
     public List<Client> addClient(@Valid @RequestBody List<Client> client) {
         return clientService.addClient(client);

@@ -18,6 +18,5 @@ public class Trainer {
     private String expertise;
     private String mobile;
     private String email;
-    private TrainingCard trainingCardID;
 
 }

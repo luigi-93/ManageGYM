@@ -23,8 +23,8 @@ public class SubscriptionDTO {
     @Column(name = "subscription_id")
     private Long subscriptionID;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private ClientDTO clientID;
 
     @Size(min = 2, max = 10, message = "The type insert is not valid, please insert a name with at least two charatter")

@@ -49,7 +49,6 @@ public class TrainerService {
                 .surname(trainer.getSurname() != null && !trainer.getSurname().isEmpty() ? trainer.getSurname() : preTrainer.getSurname())
                 .expertise(trainer.getExpertise() != null && !trainer.getExpertise().isEmpty() ? trainer.getExpertise() : preTrainer.getExpertise()).mobile(trainer.getMobile() != null && !trainer.getMobile().isEmpty() ? trainer.getMobile() : preTrainer.getMobile())
                 .email(trainer.getEmail() != null && !trainer.getEmail().isEmpty() ? trainer.getEmail() : preTrainer.getEmail())
-                .trainingCardID(trainer.getTrainingCardID() != null ? trainer.getTrainingCardID() : preTrainer.getTrainingCardID())
                 .build();
 
         TrainerDTO updateTrainerDTO = TrainerMapper.INSTANCE.trainerToTrainerDTO(updateTrainer);

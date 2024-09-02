@@ -20,29 +20,28 @@ public class Client {
     private String address;
     private String mobile;
     private String email;
-    private Subscription subscriptionID;
-    private TrainingCard trainingCardID;
 
 
 
-    public void setBday(String bday) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            Date parseDate = formatter.parse(bday);
-            this.bday = formatter.format(parseDate);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Invalid date format, expected dd-MM-yyyy", e);
-        }
-    }
+//
+//    public void setBday(String bday) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+//        try {
+//            Date parseDate = formatter.parse(bday);
+//            this.bday = formatter.format(parseDate);
+//        } catch (ParseException e) {
+//            throw new IllegalArgumentException("Invalid date format, expected dd-MM-yyyy", e);
+//        }
+//    }
 
-    public Date getBday() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            return formatter.parse(this.bday);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Invalid date format in bday field", e);
-        }
-    }
+//    public Date getBday() {
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+//        try {
+//            return formatter.parse(this.bday);
+//        } catch (ParseException e) {
+//            throw new IllegalArgumentException("Invalid date format in bday field", e);
+//        }
+//    }
 }
 
 

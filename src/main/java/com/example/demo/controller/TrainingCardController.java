@@ -71,7 +71,7 @@ public class TrainingCardController {
         TrainingCard trainingCardById = trainingCardService.getTrainingCardById(trainingCard);
         Client clientById = clientService.getClientById(client);
 
-        if (trainingCardById == null && clientById == null){
+        if (trainingCardById == null || clientById == null){
             return ResponseEntity.notFound().build();
         }
 
@@ -91,7 +91,7 @@ public class TrainingCardController {
         TrainingCard trainingCardById = trainingCardService.getTrainingCardById(trainingCard);
         Trainer trainerById = trainerService.getTrainerById(trainer);
 
-        if (trainingCardById == null && trainerById == null){
+        if (trainingCardById == null || trainerById == null){
             return ResponseEntity.notFound().build();
         }
 

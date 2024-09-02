@@ -28,6 +28,7 @@ public class SubscriptionService {
 
     @Transactional
     public List<Subscription> addSubscription(List<Subscription> subscriptions){
+
         List<SubscriptionDTO> subscriptionDTO = subscriptions
                 .stream()
                 .map(SubscriptionMapper.INSTANCE::subscriptionToSubscriptionDTO)
@@ -40,7 +41,9 @@ public class SubscriptionService {
 
     @Transactional
     public List<Subscription> getAllSubscription() {
-        return subscriptionRepository.findAll().stream().map(SubscriptionMapper.INSTANCE::subscriptionDTOToSubscription).toList();
+        List<Subscription> debug_list = subscriptionRepository.findAll().stream().map(SubscriptionMapper.INSTANCE::subscriptionDTOToSubscription).toList();
+        System.out.println(debug_list);
+        return debug_list;
     }
 
 

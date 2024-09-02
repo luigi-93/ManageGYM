@@ -52,11 +52,5 @@ public class ClientDTO {
     @Column(length = 50, nullable = false)
     private String email;
 
-    @OneToOne(mappedBy = "clientID")
-    private SubscriptionDTO subscriptionID;
-
-    @OneToOne(mappedBy = "clientID")
-    private TrainingCardDTO trainingCardID;
-
 
 }

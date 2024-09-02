@@ -8,9 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 
-@Builder(toBuilder = true)
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Getter
 @Setter
@@ -43,8 +41,6 @@ public class TrainerDTO {
     @Column(length = 50, nullable = false)
     private String email;
 
-    @OneToOne(mappedBy = "trainerID")
-    private TrainingCardDTO trainingCardID;
 
 
 }
