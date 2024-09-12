@@ -33,8 +33,14 @@ public class TrainerController {
         return  trainerService.getTrainerById(id);
     }
 
+    @PostMapping("/list")
+    public  List<Trainer> addTrainers(@Valid @RequestBody List<Trainer> trainer){
+        return trainerService.addTrainers(trainer);
+    }
+
+
     @PostMapping
-    public  List<Trainer> addTrainer(@Valid @RequestBody List<Trainer> trainer){
+    public  Trainer addTrainer(@Valid @RequestBody Trainer trainer){
         return trainerService.addTrainer(trainer);
     }
 

@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class TrainingCard {
 
     private Long cardID;
-    private Client clientID;
-    private Trainer trainerID;
+    private Long clientID;
+    private Long trainerID;
     private String startDate;
     private String endDate;
 

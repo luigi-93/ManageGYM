@@ -1,11 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.mapper.TrainerMapper;
 import com.example.demo.mapper.TrainingCardMapper;
+import com.example.demo.model.Trainer;
 import com.example.demo.model.TrainingCard;
+import com.example.demo.model.dto.TrainerDTO;
 import com.example.demo.model.dto.TrainingCardDTO;
 import com.example.demo.repository.TrainingCardRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +19,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TrainingCardService {
 
-    @Autowired
-    private TrainingCardRepository trainingCardRepository;
+
+    private final TrainingCardRepository trainingCardRepository;
 
     @Transactional
-    public List<TrainingCard> addTrainingCard(List<TrainingCard> trainingCard) {
+    public List<TrainingCard> addTrainingCards(List<TrainingCard> trainingCard) {
         List<TrainingCardDTO> trainingCardDTO = trainingCard.stream().map(TrainingCardMapper.INSTANCE::trainingCardToTrainingCardDTO)
                 .collect(Collectors.toList());
 
         List<TrainingCardDTO> saved = trainingCardRepository.saveAll(trainingCardDTO);
 
         return saved.stream().map(TrainingCardMapper.INSTANCE::trainingCardDTOToTrainingCard).collect(Collectors.toList());
+    }
+
+    public TrainingCard addTrainingCard(TrainingCard trainingCard) {
+        TrainingCardDTO trainingCardDTO = TrainingCardMapper.INSTANCE.trainingCardToTrainingCardDTO(trainingCard);
+        TrainingCardDTO saved = trainingCardRepository.save(trainingCardDTO);
+        return TrainingCardMapper.INSTANCE.trainingCardDTOToTrainingCard(saved);
     }
 
     @Transactional

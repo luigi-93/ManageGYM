@@ -21,7 +21,23 @@ import java.util.Date;
 @ToString
 @Entity
 @Table(name = "client")
+@NoArgsConstructor
 public class ClientDTO {
+
+
+    @Builder
+    public ClientDTO(Long clientID, String name, String surname, Date bday, String address, String mobile, String email) {
+        this.clientID = clientID;
+        this.name = name;
+        this.surname = surname;
+        this.bday = bday;
+        this.address = address;
+        this.mobile = mobile;
+        this.email = email;
+    }
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "client_id")

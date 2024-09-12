@@ -21,16 +21,14 @@ public class TrainingCardDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "card_id")
     private Long cardID;
+    
 
-
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private ClientDTO clientID;
 
-    //onetomany da correggere, più trainer hanno più card, gestire bene il cascade e la flag per l'eliminazione
-    //se il trainer se ne va la scheda deve poter rimanere
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "trainer_id", referencedColumnName = "trainer_id")
     private TrainerDTO trainerID;
 

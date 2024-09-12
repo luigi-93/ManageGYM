@@ -27,6 +27,19 @@ public class SubscriptionController {
 
     //@RequestMapping(method = RequestMethod.GET)
     //poichè non siamo più nella preistoria usiamo
+    @GetMapping("/expiring")
+    //[GET] http://localhost:8080/subscription/expiring
+    public List<Subscription> getAllSubscriptionExpiring(){
+        return  subscriptionService.getAllSubscriptionExpiring();
+    }
+
+
+    @GetMapping("/expired")
+    //[GET] http://localhost:8080/subscription/expired
+    public List<Subscription> getAllSubscriptionAlreadyExpired(){
+        return  subscriptionService.getAllSubscriptionAlreadyExpired();
+    }
+
     @GetMapping
     //[GET] http://localhost:8080/subscription
     public List<Subscription> getAllSubscription(){
@@ -48,8 +61,15 @@ public class SubscriptionController {
     }
 
     //[POST] http://localhost:8080/subscription
+    @PostMapping("/list")
+    public List<Subscription> addSubscriptionList(@Valid @RequestBody List<Subscription> subscription) {
+        return subscriptionService.addSubscriptions(subscription);
+    }
+
+    //DA FARE UN METODO DOVE L'ID DELL'UTENTE SE LO VA A PRENDERE DIRETTAMENTE DALL'URL
+
     @PostMapping
-    public List<Subscription> addSubscription(@Valid @RequestBody List<Subscription> subscription) {
+    public Subscription addSubscription(@Valid @RequestBody Subscription subscription) {
         return subscriptionService.addSubscription(subscription);
     }
 
@@ -72,9 +92,9 @@ public class SubscriptionController {
             return ResponseEntity.notFound().build();
         }
 
-        subscriptionById.setClientID(clientById);
+        subscriptionById.setClientID(clientById.getClientID());
         //clientService.updateClient(clientById);
-        subscriptionService.updateSubscription(subscriptionById);
+        subscriptionService.addSubscription(subscriptionById);
         
 
        return ResponseEntity.ok(subscriptionById);

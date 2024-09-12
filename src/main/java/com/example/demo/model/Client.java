@@ -3,15 +3,19 @@ package com.example.demo.model;
 
 import com.example.demo.model.dto.SubscriptionDTO;
 import com.example.demo.model.dto.TrainingCardDTO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Builder(toBuilder = true)
+@Builder(toBuilder = false) // Keeps the builder without toBuilder method
 @Data
+@AllArgsConstructor // Generates a constructor with all fields
+@NoArgsConstructor
 public class Client {
     private Long clientID;
     private String name;
@@ -20,6 +24,8 @@ public class Client {
     private String address;
     private String mobile;
     private String email;
+
+
 
 
 

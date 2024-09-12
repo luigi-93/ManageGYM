@@ -13,8 +13,11 @@ import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.SubscriptionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -23,25 +26,29 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ClientService {
-    @Autowired
-    private ClientRepository clientRepository;
 
-    @Autowired
-    private SubscriptionRepository subscriptionRepository;
+    private final ClientRepository clientRepository;
+    private final SubscriptionRepository subscriptionRepository;
 
-    //operazioni che vengono eseguite a stock
-    @Transactional
-    public List<Client> addClient(List<Client> clients) {
-        List<ClientDTO> clientDTOs = clients
-                .stream()
-                .map(ClientMapper.INSTANCE::clientToClientDTO)
-                .collect(Collectors.toList());
-        //il metodo sotto viene utilizzato nel caso in cui si vuole aggiungere solo un client, ma obsoleto perchè grazie spring.jackson.deserialization.accept-single-value-as-array=true l'array viene accettata anche nel caso in cui ho solo un elemento
-        //ClientMapper.INSTANCE.clientToClientDTO(client);
-        List<ClientDTO> saved = clientRepository.saveAll(clientDTOs);
-        return saved.stream().map(ClientMapper.INSTANCE::clientDTOToClient).collect(Collectors.toList());
+    public List<Client> listClientByName(String name, PageRequest pageRequest) {
+        Page<ClientDTO> result = clientRepository.findAllByNameIsLikeIgnoreCase(name, pageRequest);
+
+        return result.get()
+                .map(cl -> {
+                    Client client = new Client();
+                    client.setName(cl.getName());
+                    client.setSurname(cl.getSurname());
+                    client.setBday(String.valueOf(cl.getBday()));
+                    client.setEmail(cl.getEmail());
+                    client.setMobile(cl.getMobile());
+                    client.setAddress(cl.getAddress());
+                    return client;
+                }).toList();
     }
+
+
 
 
     @Transactional
@@ -53,6 +60,28 @@ public class ClientService {
                 .map(ClientMapper.INSTANCE::clientDTOToClient)
                 .toList();
     }
+
+    //operazioni che vengono eseguite a stock
+    @Transactional
+    public List<Client> addClients(List<Client> clients) {
+        List<ClientDTO> clientDTOs = clients
+                .stream()
+                .map(ClientMapper.INSTANCE::clientToClientDTO)
+                .collect(Collectors.toList());
+        //il metodo sotto viene utilizzato nel caso in cui si vuole aggiungere solo un client, ma obsoleto perchè grazie spring.jackson.deserialization.accept-single-value-as-array=true l'array viene accettata anche nel caso in cui ho solo un elemento
+        //ClientMapper.INSTANCE.clientToClientDTO(client);
+        List<ClientDTO> saved = clientRepository.saveAll(clientDTOs);
+        return saved.stream().map(ClientMapper.INSTANCE::clientDTOToClient).collect(Collectors.toList());
+    }
+
+
+
+    public Client addClient(Client client) {
+        ClientDTO clientDTO = ClientMapper.INSTANCE.clientToClientDTO(client);
+        ClientDTO saved = clientRepository.save(clientDTO);
+        return ClientMapper.INSTANCE.clientDTOToClient(saved);
+    }
+
 
 
     public Client updateClient (Client client) throws ParseException {

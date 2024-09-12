@@ -1,11 +1,8 @@
 package com.example.demo.model.dto;
 
-import com.example.demo.model.Client;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
-import jdk.jfr.Name;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,7 +20,7 @@ public class SubscriptionDTO {
     @Column(name = "subscription_id")
     private Long subscriptionID;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private ClientDTO clientID;
 

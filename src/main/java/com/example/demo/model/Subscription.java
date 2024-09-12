@@ -10,8 +10,7 @@ import java.util.Date;
 @Data
 public class Subscription {
     private Long subscriptionID;
-    //sostituire con long, così da poter usare il post addsub
-    private Client clientID;
+    private Long clientID;
     private String type;
     private String startDate;
     private String endDate;

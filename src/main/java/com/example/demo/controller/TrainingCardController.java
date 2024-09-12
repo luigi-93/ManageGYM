@@ -51,8 +51,14 @@ public class TrainingCardController {
     }
 
     //[POST] http://localhost:8080/trainingCard
+    @PostMapping("/list")
+    public List<TrainingCard> addTrainingCards(@Valid @RequestBody List<TrainingCard> trainingCard) {
+        return trainingCardService.addTrainingCards(trainingCard);
+    }
+
+
     @PostMapping
-    public List<TrainingCard> addTrainingCard(@Valid @RequestBody List<TrainingCard> trainingCard) {
+    public TrainingCard addTrainingCard(@Valid @RequestBody TrainingCard trainingCard) {
         return trainingCardService.addTrainingCard(trainingCard);
     }
 
@@ -65,7 +71,6 @@ public class TrainingCardController {
     }
 
     //[PUT] http://localhost:8080/trainingCard/addClient?trainingCard=1&client=1
-
     @PutMapping("/addClient")
     public ResponseEntity<TrainingCard> addClientToTrainingCard (@RequestParam long trainingCard, @RequestParam long client) throws ParseException {
         TrainingCard trainingCardById = trainingCardService.getTrainingCardById(trainingCard);
@@ -76,7 +81,7 @@ public class TrainingCardController {
         }
 
 
-        trainingCardById.setClientID(clientById);
+        trainingCardById.setClientID(clientById.getClientID());
         trainingCardService.updateTrainingCard(trainingCardById);
         clientService.updateClient(clientById);
 
@@ -96,7 +101,7 @@ public class TrainingCardController {
         }
 
 
-        trainingCardById.setTrainerID(trainerById);
+        trainingCardById.setTrainerID(trainerById.getTrainerID());
         trainingCardService.updateTrainingCard(trainingCardById);
         trainerService.updateTrainer(trainerById);
 

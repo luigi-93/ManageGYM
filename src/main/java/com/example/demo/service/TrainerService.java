@@ -1,11 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.mapper.ClientMapper;
 import com.example.demo.mapper.TrainerMapper;
+import com.example.demo.model.Client;
 import com.example.demo.model.Trainer;
+import com.example.demo.model.dto.ClientDTO;
 import com.example.demo.model.dto.TrainerDTO;
 import com.example.demo.repository.TrainerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +19,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TrainerService {
 
-    @Autowired
-    TrainerRepository trainerRepository;
+
+    private final TrainerRepository trainerRepository;
 
     @Transactional
-    public List<Trainer> addTrainer(List<Trainer> trainer) {
+    public List<Trainer> addTrainers(List<Trainer> trainer) {
         List<TrainerDTO> trainerDTO = trainer
                 .stream()
                 .map(TrainerMapper.INSTANCE::trainerToTrainerDTO)
@@ -31,6 +36,13 @@ public class TrainerService {
 
         return saved.stream().map(TrainerMapper.INSTANCE::trainerDTOToTrainer).collect(Collectors.toList());
     }
+
+    public Trainer addTrainer(Trainer trainer) {
+        TrainerDTO trainerDTO = TrainerMapper.INSTANCE.trainerToTrainerDTO(trainer);
+        TrainerDTO saved = trainerRepository.save(trainerDTO);
+        return TrainerMapper.INSTANCE.trainerDTOToTrainer(saved);
+    }
+
 
     @Transactional
     public List<Trainer> getAllTrainer() {
